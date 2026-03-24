@@ -44,6 +44,12 @@ function App() {
 
   const cities = ["Dublin", "Sydney", "Toronto"];
 
+  // ✅ ADD THIS (ONLY NEW LOGIC)
+  const API_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:5168"
+      : "https://mycityweatherapp.onrender.com";
+
   const helperText = useBreakpointValue({
     base: "To view the weather, select a city from the dropdown above",
     md: "To view the weather, choose a city from the dropdown on the left",
@@ -63,9 +69,8 @@ function App() {
     setLoading(true);
 
     try {
-      // to connect the backend locally, use:
-      // const res = await fetch(`http://localhost:5168/api/weather/${city}`);
-      const res = await fetch(`https://mycityweatherapp.onrender.com/api/weather/${city}`);
+      const res = await fetch(`${API_URL}/api/weather/${city}`);
+
       const result: WeatherResponse = await res.json();
 
       cache[city] = result;
@@ -83,9 +88,7 @@ function App() {
         <Box {...styles.darkOverlayStrong} />
 
         <VStack spacing={6} {...styles.centerStack}>
-          <Heading {...styles.landingHeading}>
-            City Weather App
-          </Heading>
+          <Heading {...styles.landingHeading}>City Weather App</Heading>
 
           <Text {...styles.landingSubtext}>
             Real-time forecasts for cities around the world
@@ -113,7 +116,7 @@ function App() {
     <Suspense
       fallback={
         <Flex {...styles.fullScreenCenter}>
-          <SpinLoader/>
+          <SpinLoader />
         </Flex>
       }
     >

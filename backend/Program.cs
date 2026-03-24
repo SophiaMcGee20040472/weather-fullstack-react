@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-// Create builder
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -14,24 +13,29 @@ builder.Services.AddHttpClient<WeatherService>(client =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
-        p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+    options.AddPolicy("AllowFrontend",
+        policy =>
+        {
+            policy
+                .WithOrigins(
+                    "http://localhost:5173",
+                    "https://mycityweatherapp.vercel.app"
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
 
 builder.Services.AddResponseCompression();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5168";
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
-// Build app
 var app = builder.Build();
 
-
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 
 app.UseResponseCompression();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

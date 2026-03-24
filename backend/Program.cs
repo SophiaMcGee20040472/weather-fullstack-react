@@ -20,11 +20,12 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddResponseCompression();
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 // Build app
 var app = builder.Build();
 
-// Middleware
-app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 

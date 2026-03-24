@@ -15,25 +15,39 @@ namespace WeatherApi.Controllers
         }
 
         [HttpGet("{city}")]
-[ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
-public async Task<IActionResult> Get(string city)
-{
-    var weatherTask = _service.GetWeather(city);
-    var timezoneTask = _service.GetTimezone(city);
-    var astronomyTask = _service.GetAstronomy(city);
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any, NoStore = false)]
+        public async Task<IActionResult> Get(string city)
+        {
+            try
+            {
+                var weatherTask = _service.GetWeather(city);
+                var timezoneTask = _service.GetTimezone(city);
+                var astronomyTask = _service.GetAstronomy(city);
 
-    await Task.WhenAll(weatherTask, timezoneTask, astronomyTask);
+                await Task.WhenAll(weatherTask, timezoneTask, astronomyTask);
 
-    using var weatherJson = JsonDocument.Parse(weatherTask.Result);
-    using var timezoneJson = JsonDocument.Parse(timezoneTask.Result);
-    using var astronomyJson = JsonDocument.Parse(astronomyTask.Result);
+                // Parse safely
+                using var weatherJson = JsonDocument.Parse(await weatherTask);
+                using var timezoneJson = JsonDocument.Parse(await timezoneTask);
+                using var astronomyJson = JsonDocument.Parse(await astronomyTask);
 
-    return Ok(new
-    {
-        weather = weatherJson.RootElement.Clone(),    
-        timezone = timezoneJson.RootElement.Clone(),   
-        astronomy = astronomyJson.RootElement.Clone()  
-    });
-}
+                return Ok(new
+                {
+                    weather = weatherJson.RootElement.Clone(),
+                    timezone = timezoneJson.RootElement.Clone(),
+                    astronomy = astronomyJson.RootElement.Clone()
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Controller ERROR: {ex.Message}");
+
+                return StatusCode(500, new
+                {
+                    error = "Failed to fetch weather data",
+                    details = ex.Message
+                });
+            }
+        }
     }
 }

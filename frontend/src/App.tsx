@@ -63,10 +63,9 @@ function App() {
     setLoading(true);
 
     try {
-      //local development link to switch to production link when deploying
-
+      // to connect the backend locally, use:
       // const res = await fetch(`http://localhost:5168/api/weather/${city}`);
-      const res = await fetch(`https://mycityweatherapp.vercel.app/api/weather/${city}`);
+      const res = await fetch(`https://mycityweatherapp.onrender.com/api/weather/${city}`);
       const result: WeatherResponse = await res.json();
 
       cache[city] = result;

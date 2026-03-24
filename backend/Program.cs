@@ -22,7 +22,8 @@ builder.Services.AddCors(options =>
                     "https://mycityweatherapp.vercel.app"
                 )
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 
@@ -34,6 +35,8 @@ builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 var app = builder.Build();
 
 app.UseCors("AllowFrontend");
+
+app.UseRouting(); 
 
 app.UseResponseCompression();
 

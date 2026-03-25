@@ -39,7 +39,7 @@ type InfoCardProps = {
   color: string;
 };
 
-function WeatherDashboardCard({ data, image }: Props) {
+function DashboardCard({ data, image }: Props) {
   const [tab, setTab] = useState<TabType>("weather");
 
   const { formattedDate, formattedTime } = useMemo(() => {
@@ -176,4 +176,4 @@ const InfoCard = ({ icon, label, value, color }: InfoCardProps) => (
   </HStack>
 );
 
-export default memo(WeatherDashboardCard);
+export default memo(DashboardCard);

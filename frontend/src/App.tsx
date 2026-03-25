@@ -14,8 +14,8 @@ import type { ChakraProps } from "@chakra-ui/react";
 import type { WeatherResponse } from "./types/weather";
 import SpinLoader from "./components/Spinner/SpinLoader";
 
-const WeatherDashboardCard = lazy(
-  () => import("./components/WeatherDashboardCard/WeatherDashboardCard"),
+const DashboardCard = lazy(
+  () => import("./components/DashboardCard/DashboardCard"),
 );
 const Sidebar = lazy(() => import("./components/Sidebar/Sidebar"));
 const TopNav = lazy(() => import("./components/TopNav/TopNav"));
@@ -173,7 +173,7 @@ function App() {
                       Weather in {selectedCity}
                     </Text>
 
-                    <WeatherDashboardCard
+                    <DashboardCard
                       data={data}
                       image={cityImages[selectedCity]}
                     />

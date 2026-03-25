@@ -20,6 +20,8 @@ type TopNavProps = {
   cities: string[];
   setPage: (page: Page) => void;
   page: Page;
+
+  forceVisible?: boolean;
 };
 
 const TopNav = ({
@@ -29,6 +31,7 @@ const TopNav = ({
   cities,
   setPage,
   page,
+  forceVisible = false,
 }: TopNavProps) => {
   const menuItemStyle = (active: boolean) => ({
     cursor: "pointer",
@@ -42,11 +45,11 @@ const TopNav = ({
   });
 
   const iconColor = (active: boolean) =>
-    active ? "gray.500" : "gray.500";
+    active ? "gray.400" : "gray.500";
 
   return (
     <Box
-      display={{ base: "block", md: "none" }}
+      display={forceVisible ? "block" : { base: "block", md: "none" }}
       bg="#a8ccc3"
       px={4}
       py={3}
@@ -96,7 +99,7 @@ const TopNav = ({
             value={city || ""}
             onChange={(e) => setCity(e.target.value)}
             bg="white"
-            border='3px solid #FDB933'
+            border="3px solid #FDB933"
           >
             <option value="" disabled>
               Select city

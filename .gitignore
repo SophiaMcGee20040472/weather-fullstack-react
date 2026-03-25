@@ -54,3 +54,5 @@ appsettings.Development.json
 *.swp
 *.ntvs*
 *.njsproj
+*storybook.log
+storybook-static

@@ -52,7 +52,7 @@ const Profile = () => {
               <ListItem>
                 <HStack {...styles.listItemRow}>
                   <Icon as={MdNightlife} {...styles.listIcon} />
-                  <Text {...styles.listText}>Nights Out</Text>
+                  <Text {...styles.listText}>Fishing Trips</Text>
                 </HStack>
               </ListItem>
 

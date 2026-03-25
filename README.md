@@ -25,8 +25,8 @@ This project is about making weather feel **easy, calm, and human**.
 
 ## Live Demo
 
-- Frontend: https://mycityweatherapp.onrender.com/  
-- Backend API: https://mycityweatherapp.vercel.app/  
+- Frontend: https://mycityweatherapp.vercel.app/   
+- Backend API: https://mycityweatherapp.onrender.com/api/weather/dublin  (test endpoint) 
 
 ---
 

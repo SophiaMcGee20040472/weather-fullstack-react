@@ -81,7 +81,7 @@ const styles = {
     p: { base: 3, md: 4 },
     maxW: "900px",
     mx: "auto",
-    mt: { base: 0, lg: "80px" },
+    mt: { base: 0,md: "120px", lg: "120px" },
     bg: "white",
     borderRadius: "xl",
     boxShadow: "md",
@@ -95,7 +95,7 @@ const styles = {
     borderRadius: "lg",
     objectFit: "cover",
     w: { base: "120px", sm: "160px", md: "220px" },
-    h: { base: "180px", sm: "220px", md: "260px" },
+    h: { base: "205px", sm: "220px", md: "260px" },
   },
 
   badge: {

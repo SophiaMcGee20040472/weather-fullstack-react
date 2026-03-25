@@ -1,12 +1,77 @@
-# City Weather App (Fullstack React + .NET)
+## Table of Contents
 
-A modern, playful weather dashboard designed for **everyday people** not just technical users.
+- [City Weather App](#city-weather-app)
+- [Live Demo](#live-demo)  
+- [Local Setup](#local-setup)  
+  - [Requirements](#requirements)  
+  - [Run Frontend](#run-frontend)  
+  - [Run Backend](#run-backend)
+- [Why I Built This](#why-i-built-this)  
+- [Features](#features)  
+- [UI Preview](#ui-preview)  
+  - [Landing Experience](#landing-experience)  
+  - [Dashboard (Empty State)](#dashboard-empty-state)  
+  - [Weather View](#weather-view)  
+  - [Timezone View](#timezone-view)  
+  - [Astronomy View](#astronomy-view)  
+  - [Profile Page](#profile-page)  
+  - [Loading State](#loading-state)  
+- [Accessibility & Testing](#accessibility--testing)  
+- [Design Philosophy](#design-philosophy)  
+- [Accessibility First](#accessibility-first)  
+- [Testing Approach](#testing-approach)  
+- [Architecture](#architecture)  
+- [Structure](#structure)  
+- [Environment Config](#environment-config)  
+- [API Example](#api-example)  
+- [Deployment](#deployment)  
+  - [Frontend (Vercel)](#frontend-vercel)  
+  - [Backend (Render)](#backend-render)  
+- [Roadmap](#roadmap)  
+- [Author](#author)  
+- [Support](#support)
+
+---
+
+## City Weather App
+
+A modern, playful weather dashboard designed for **everyday people** — not just technical users.
 
 This app delivers real-time weather, timezone, and astronomy data in a way that feels **clear, friendly, and a little whimsical**, rather than overwhelming or corporate.
 
 Built with **React, Chakra UI, Vitest, Storybook, and a secure .NET backend**.
 
 ---
+## Live Demo
+
+- Frontend: https://mycityweatherapp.vercel.app/   
+- Backend API: https://mycityweatherapp.onrender.com/api/weather/dublin  (test endpoint) 
+
+---
+
+## Local Setup
+
+### Requirements
+- Node.js (v22.19.0)
+- .NET SDK (dotnet 10.0.201)
+- Git
+
+### Run Frontend
+
+The frontend will open at `http://localhost:5173/`
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+## Run Backend
+```bash
+cd backend
+dotnet restore
+dotnet run
+```
+- This backend will run on `http://localhost:5168`
 
 ## Why I Built This
 
@@ -20,13 +85,6 @@ I wanted to design something different:
 - Focused on what people actually need  
 
 This project is about making weather feel **easy, calm, and human**.
-
----
-
-## Live Demo
-
-- Frontend: https://mycityweatherapp.vercel.app/   
-- Backend API: https://mycityweatherapp.onrender.com/api/weather/dublin  (test endpoint) 
 
 ---
 
@@ -176,27 +234,6 @@ city-weather-app/
 ├── backend/    # .NET API
 └── README.md
 ```
-### Local Setup
-## Requirements
-- Node.js
-- .NET SDK
-- Git
-## Run Frontend
-
--The frontend will open at `http://localhost:5173/`
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-## Run Backend
-```bash
-cd backend
-dotnet restore
-dotnet run
-```
-- This backend will run on `http://localhost:5168`
     
 ## Environment Config
 ```bash

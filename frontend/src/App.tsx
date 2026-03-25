@@ -36,7 +36,6 @@ type Styles = Record<string, ChakraProps>;
 function App() {
   const [entered, setEntered] = useState(false);
   const [page, setPage] = useState<Page>("dashboard");
-
   const [city, setCity] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [data, setData] = useState<WeatherResponse | null>(null);
@@ -44,7 +43,6 @@ function App() {
 
   const cities = ["Dublin", "Sydney", "Toronto"];
 
-  // ✅ ADD THIS (ONLY NEW LOGIC)
   const API_URL =
     import.meta.env.MODE === "development"
       ? "http://localhost:5168"
@@ -300,8 +298,8 @@ const styles: Styles = {
 
   primaryButton: {
     px: 8,
-    bgGradient: "linear(to-r, blue.700, cyan.600)",
-    color: "white",
+    bgGradient: "linear(to-r, '#4A6E7A', 'blue.500')",
+    color: "#2C5D71",
     _hover: { transform: "scale(1.05)" },
     transition: "all 0.3s ease",
   },

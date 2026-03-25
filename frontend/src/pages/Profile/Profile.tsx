@@ -42,7 +42,7 @@ const Profile = () => {
               <Icon as={FaUser} {...styles.icon} />
               <Text {...styles.label}>Username</Text>
             </HStack>
-            <Text {...styles.value}>Sophia McG</Text>
+            <Text {...styles.value}>Oatie Otter</Text>
           </Box>
 
           <Box {...styles.listBox}>

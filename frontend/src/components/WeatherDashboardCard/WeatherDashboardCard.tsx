@@ -167,7 +167,7 @@ function WeatherDashboardCard({ data, image }: Props) {
 const InfoCard = ({ icon, label, value, color }: InfoCardProps) => (
   <HStack sx={styles.infoCard} justify="space-between" align="center">
     <HStack spacing={2.5}>
-      <Box fontSize={{ base: "18px", md: "22px" }} color={color}>
+      <Box fontSize={{ base: "18px", md: "30px" }} color={color}>
         {icon}
       </Box>
       <Text sx={styles.label}>{label}</Text>
@@ -175,6 +175,5 @@ const InfoCard = ({ icon, label, value, color }: InfoCardProps) => (
     <Text sx={styles.value}>{value}</Text>
   </HStack>
 );
-
 
 export default memo(WeatherDashboardCard);

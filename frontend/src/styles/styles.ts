@@ -1,13 +1,14 @@
 export const styles = {
   card: {
-    p: { base: 2, md: 2.5 },
+    p: { base: 2, md: 6 },
     borderRadius: "xl",
     bg: "white",
     gap: { base: 4, md: 5 },
     flexDirection: { base: "column", md: "row" },
     w: "100%",
     maxW: "900px",
-    mx: "auto",
+    mt: "4px",
+    ml: { md: "16px", lg: "14px" },
     boxShadow: "md",
   },
 
@@ -75,7 +76,7 @@ export const styles = {
     fontWeight: "semibold",
     color: "blue.700",
   },
-  
+
   timeRow: {
     p: 2,
     borderRadius: "md",
@@ -85,9 +86,8 @@ export const styles = {
     justifyContent: "flex-start",
     gap: 6,
   },
-   logo: {
+  logo: {
     boxSize: "44px",
     borderRadius: "full",
   },
-  
-}
+};

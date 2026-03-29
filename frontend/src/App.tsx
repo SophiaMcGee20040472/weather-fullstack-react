@@ -178,7 +178,7 @@ function App() {
                 )}
 
                 {error && !loading && !data && (
-                  <Text color="pink.100" ml='16px'>
+                  <Text color="pink.100" ml={{base:'10px', md:'16px'}}>
                     Unable to fetch weather data. API limit may be reached.
                   </Text>
                 )}

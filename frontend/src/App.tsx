@@ -40,6 +40,7 @@ function App() {
   const [selectedCity, setSelectedCity] = useState("");
   const [data, setData] = useState<WeatherResponse | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const cities = ["Dublin", "Sydney", "Toronto"];
 
@@ -58,6 +59,7 @@ function App() {
 
     setSelectedCity(city);
     setPage("dashboard");
+    setError(false);
 
     if (cache[city]) {
       setData(cache[city]);
@@ -68,13 +70,21 @@ function App() {
 
     try {
       const res = await fetch(`${API_URL}/api/weather/${city}`);
+      const result = await res.json();
 
-      const result: WeatherResponse = await res.json();
+      if (!res.ok || result.error) {
+        console.error("API returned error:", result);
+        setData(null);
+        setError(true);
+        return;
+      }
 
       cache[city] = result;
       setData(result);
     } catch (error) {
       console.error("Error fetching data:", error);
+      setError(true);
+      setData(null);
     } finally {
       setLoading(false);
     }
@@ -162,8 +172,20 @@ function App() {
                 )}
 
                 {loading && (
-                  <Text color="gray.300">
-                    Loading weather for {selectedCity}...
+                  <Flex justify="center" align="center" minH="200px">
+                    <SpinLoader />
+                  </Flex>
+                )}
+
+                {error && !loading && !data && (
+                  <Text color="pink.100" ml='16px'>
+                    Unable to fetch weather data. API limit may be reached.
+                  </Text>
+                )}
+
+                {error && data && (
+                  <Text color="yellow.300">
+                    Showing saved data (API limit reached)
                   </Text>
                 )}
 
@@ -201,7 +223,7 @@ const styles: Styles = {
     justifyContent: "center",
   },
 
-  backgroundImage: {
+    backgroundImage: {
     bgImage: "url('/images/cloudy.jpg')",
     bgSize: "cover",
     bgPosition: "center",
@@ -283,7 +305,7 @@ const styles: Styles = {
     bgClip: "text",
     fontWeight: "extrabold",
   },
-
+  
   landingSubtext: {
     color: "white",
     fontSize: "md",

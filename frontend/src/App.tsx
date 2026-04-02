@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useRef, lazy, Suspense } from "react";
 import {
   Box,
   Heading,
@@ -29,8 +29,6 @@ const cityImages: Record<string, string> = {
   Toronto: "/images/toronto.webp",
 };
 
-const cache: Record<string, WeatherResponse> = {};
-
 type Styles = Record<string, ChakraProps>;
 
 function App() {
@@ -41,6 +39,8 @@ function App() {
   const [data, setData] = useState<WeatherResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+
+  const cache = useRef<Record<string, WeatherResponse>>({});
 
   const cities = ["Dublin", "Sydney", "Toronto"];
 
@@ -55,34 +55,39 @@ function App() {
   });
 
   const fetchData = async () => {
-    if (!city) return;
+    if (!city || loading) return;
 
     setSelectedCity(city);
     setPage("dashboard");
     setError(false);
+    setLoading(true);
 
-    if (cache[city]) {
-      setData(cache[city]);
+    if (city === selectedCity && data) {
+      setLoading(false);
       return;
     }
 
-    setLoading(true);
+    if (cache.current[city]) {
+      setData(cache.current[city]);
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await fetch(`${API_URL}/api/weather/${city}`);
       const result = await res.json();
 
       if (!res.ok || result.error) {
-        console.error("API returned error:", result);
-        setData(null);
+        console.error("API error:", result);
         setError(true);
+        setData(null);
         return;
       }
 
-      cache[city] = result;
+      cache.current[city] = result;
       setData(result);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+    } catch (err) {
+      console.error("Fetch error:", err);
       setError(true);
       setData(null);
     } finally {
@@ -136,7 +141,7 @@ function App() {
             city={city}
             setCity={setCity}
             fetchData={fetchData}
-            isDisabled={!city}
+            isDisabled={!city || loading}
             cities={cities}
             setPage={setPage}
             page={page}
@@ -146,7 +151,7 @@ function App() {
             city={city}
             setCity={setCity}
             fetchData={fetchData}
-            isDisabled={!city}
+            isDisabled={!city || loading}
             cities={cities}
             setPage={setPage}
             page={page}
@@ -178,7 +183,7 @@ function App() {
                 )}
 
                 {error && !loading && !data && (
-                  <Text color="pink.100" ml={{base:'10px', md:'16px'}}>
+                  <Text color="pink.100" ml={{ base: "10px", md: "16px" }}>
                     Unable to fetch weather data. API limit may be reached.
                   </Text>
                 )}
@@ -223,7 +228,7 @@ const styles: Styles = {
     justifyContent: "center",
   },
 
-    backgroundImage: {
+  backgroundImage: {
     bgImage: "url('/images/cloudy.jpg')",
     bgSize: "cover",
     bgPosition: "center",
@@ -305,7 +310,7 @@ const styles: Styles = {
     bgClip: "text",
     fontWeight: "extrabold",
   },
-  
+
   landingSubtext: {
     color: "white",
     fontSize: "md",
